@@ -1,0 +1,53 @@
+{
+  "resourceType": "Organization",
+  "id": "jp-organization-example-hospital-2",
+  "meta": {
+    "profile": [
+      "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization"
+    ]
+  },
+  "text": {
+    "status": "extensions",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Organization</b><a name=\"jp-organization-example-hospital\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Organization \"jp-organization-example-hospital\" </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-jp-organization.html\">JP Core Organization Profile</a></p></div><p><b>JP Core Organization PrefectureNo Extension</b>: 東京都 (Details: urn:oid:1.2.392.100495.20.3.21 code 13 = '東京都', stated as 'null')</p><p><b>JP Core Organization InsuranceOrganizationCategory Extension</b>: 医科 (Details: urn:oid:1.2.392.100495.20.3.22 code 1 = '医科', stated as 'null')</p><p><b>JP Core Organization InsuranceOrganizationNo Extension</b>: id: 9876543</p><p><b>identifier</b>: id: 1319876543</p><p><b>name</b>: 健康第一病院</p><p><b>address</b>: 東京都文京区本郷Ｙ−Ｙ−Ｙ 文京区 東京都 JPN </p></div>"
+  },
+  "extension": [
+    {
+      "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_PrefectureNo",
+      "valueCoding": {
+        "system": "urn:oid:1.2.392.100495.20.3.21",
+        "code": "13"
+      }
+    },
+    {
+      "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_InsuranceOrganizationCategory",
+      "valueCoding": {
+        "system": "urn:oid:1.2.392.100495.20.3.22",
+        "code": "1"
+      }
+    },
+    {
+      "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_InsuranceOrganizationNo",
+      "valueIdentifier": {
+        "system": "urn:oid:1.2.392.100495.20.3.23",
+        "value": "9876543"
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "system": "http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no",
+      "value": "jp-organization-example-hospital"
+    }
+  ],
+  "name": "健康第一病院",
+  "address": [
+    {
+      "line": [
+        "東京都文京区本郷Ｙ−Ｙ−Ｙ"
+      ],
+      "city": "文京区",
+      "state": "東京都",
+      "country": "JPN"
+    }
+  ]
+}

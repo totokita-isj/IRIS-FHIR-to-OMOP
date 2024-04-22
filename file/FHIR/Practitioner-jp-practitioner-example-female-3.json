@@ -1,0 +1,98 @@
+{
+  "resourceType": "Practitioner",
+  "id": "jp-practitioner-example-female-3",
+  "meta": {
+    "profile": [
+      "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Practitioner</b><a name=\"jp-practitioner-example-female-1\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Practitioner \"jp-practitioner-example-female-1\" </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-jp-practitioner.html\">JP Core Practitioner Profile</a></p></div><p><b>name</b>: 東京 春子, トウキョウ ハルコ</p><p><b>gender</b>: female</p><blockquote><p><b>qualification</b></p><p><b>identifier</b>: id: 999-12345</p><p><b>code</b>: 麻薬施用者番号 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (JP_MedicalLicenseCertificate_CS#narcotics-practitioner)</span></p></blockquote><blockquote><p><b>qualification</b></p><p><b>identifier</b>: id: 999-54321</p><p><b>code</b>: 麻薬施用者番号 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (JP_MedicalLicenseCertificate_CS#narcotics-practitioner)</span></p></blockquote><blockquote><p><b>qualification</b></p><p><b>identifier</b>: id: 999999-00001</p><p><b>code</b>: 医籍登録番号 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (JP_MedicalLicenseCertificate_CS#medical-registration)</span></p></blockquote></div>"
+  },
+  "identifier": [
+    {
+      "system": "urn:oid:1.2.392.100495.20.3.41.11312345670",
+      "value": "jp-practitioner-example-female-1"
+    }
+  ],
+  "name": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+          "valueCode": "IDE"
+        }
+      ],
+      "text": "東京 春子",
+      "family": "東京",
+      "given": [
+        "春子"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+          "valueCode": "SYL"
+        }
+      ],
+      "text": "トウキョウ ハルコ",
+      "family": "トウキョウ",
+      "given": [
+        "ハルコ"
+      ]
+    }
+  ],
+  "gender": "female",
+  "qualification": [
+    {
+      "identifier": [
+        {
+          "system": "urn:oid:1.2.392.100495.20.3.32.113",
+          "value": "999-12345"
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_MedicalLicenseCertificate_CS",
+            "code": "narcotics-practitioner"
+          }
+        ]
+      }
+    },
+    {
+      "identifier": [
+        {
+          "system": "urn:oid:1.2.392.100495.20.3.32.101",
+          "value": "999-54321"
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_MedicalLicenseCertificate_CS",
+            "code": "narcotics-practitioner"
+          }
+        ]
+      }
+    },
+    {
+      "identifier": [
+        {
+          "system": "urn:oid:1.2.392.100495.20.3.31",
+          "value": "999999-00001"
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_MedicalLicenseCertificate_CS",
+            "code": "medical-registration"
+          }
+        ]
+      }
+    }
+  ]
+}

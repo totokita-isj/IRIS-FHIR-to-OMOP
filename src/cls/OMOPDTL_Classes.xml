@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2024.1 (Build 263U)" ts="2024-04-22 08:53:53">
+<Class name="OMOPDTL.ExecutionLog">
+<Super>%Persistent</Super>
+<TimeChanged>66849,34942.1249264</TimeChanged>
+<TimeCreated>66849,33390.699702</TimeCreated>
+
+<Property name="StepOrder">
+<Type>%BigInt</Type>
+<SqlColumnNumber>2</SqlColumnNumber>
+</Property>
+
+<Property name="StepName">
+<Type>%String</Type>
+<SqlColumnNumber>3</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="StartTime">
+<Type>%DateTime</Type>
+<SqlColumnNumber>4</SqlColumnNumber>
+</Property>
+
+<Property name="EndTime">
+<Type>%DateTime</Type>
+<SqlColumnNumber>5</SqlColumnNumber>
+</Property>
+</Class>
+
+
+<Class name="OMOPDTL.F2OMap">
+<Description>
+Code mapping table from FHIR to OMOP</Description>
+<Super>%Persistent</Super>
+<TimeChanged>66833,45053.6679342</TimeChanged>
+<TimeCreated>66826,61276.9861866</TimeCreated>
+
+<Property name="Key">
+<Type>%String</Type>
+<SqlColumnNumber>2</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="Source_Code">
+<Type>%String</Type>
+<SqlColumnNumber>3</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="Source_Name">
+<Type>%String</Type>
+<SqlColumnNumber>4</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Property name="OMOP_Concept_Id">
+<Type>%Integer</Type>
+<InitialExpression>0</InitialExpression>
+<SqlColumnNumber>5</SqlColumnNumber>
+</Property>
+
+<Index name="PK_F2OMap">
+<IdKey>1</IdKey>
+<Properties>"Key","Source_Code"</Properties>
+</Index>
+
+<Method name="LoadFromExcel">
+<ClassMethod>1</ClassMethod>
+<Language>python</Language>
+<Implementation><![CDATA[
+
+	import iris
+	import pandas as pd
+	import pyodbc
+	
+	input_file = pd.ExcelFile('C:/test/omopfile/F2OMap.xlsx')
+	sheet_names = input_file.sheet_names
+
+	sheet_df = input_file.parse(sheet_names)
+	
+	server = 'localhost'
+	database = 'TEST'
+	username = '_SYSTEM'
+	password = 'irispass'
+	cnxn = pyodbc.connect('DRIVER={InterSystems IRIS ODBC35};SERVER='+server +
+                      ';DATABASE='+database+';UID='+username+';PWD=' + password)
+	cursor = cnxn.cursor()
+
+	for i, name in enumerate(sheet_names):
+		sheet_df[i] = input_file.parse(name)
+
+		if name != 'List':
+			for index, row in sheet_df[i].iterrows():
+				cursor.execute("INSERT OR UPDATE OMOPDTL.F2OMap (Key, Source_Code, Source_Name, OMOP_Concept_Id) values(?,?,?,?)", name, row.Source_Code, row.Source_Name, row.OMOP_Concept_Id)
+
+	cnxn.commit()
+	cursor.close()
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="OMOPDTL.JobStepList">
+<Super>%Persistent</Super>
+<TimeChanged>66834,42466.4911292</TimeChanged>
+<TimeCreated>66834,41708.8493479</TimeCreated>
+
+<Property name="StepOrder">
+<Type>%Integer</Type>
+<SqlColumnNumber>2</SqlColumnNumber>
+</Property>
+
+<Property name="StepOrderSeq">
+<Type>%Integer</Type>
+<SqlColumnNumber>3</SqlColumnNumber>
+</Property>
+
+<Property name="StepName">
+<Type>%String</Type>
+<SqlColumnNumber>4</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Property name="ExecutionClassMethod">
+<Type>%String</Type>
+<SqlColumnNumber>5</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Property name="ExecutionParameter">
+<Type>%String</Type>
+<SqlColumnNumber>6</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="Description">
+<Type>%String</Type>
+<SqlColumnNumber>7</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Index name="PK_JobStepList">
+<IdKey>1</IdKey>
+<Properties>StepOrder,StepOrderSeq</Properties>
+</Index>
+</Class>
+
+
+<Class name="OMOPDTL.TableFieldList">
+<Super>%Persistent</Super>
+<TimeChanged>66836,38426.030386</TimeChanged>
+<TimeCreated>66836,37474.3240699</TimeCreated>
+
+<Property name="TableName">
+<Type>%String</Type>
+<SqlColumnNumber>2</SqlColumnNumber>
+<Parameter name="MAXLEN" value="200"/>
+</Property>
+
+<Property name="FieldName">
+<Type>%String</Type>
+<SqlColumnNumber>3</SqlColumnNumber>
+<Parameter name="MAXLEN" value="200"/>
+</Property>
+
+<Property name="IsTextToDate">
+<Type>%Boolean</Type>
+<SqlColumnNumber>4</SqlColumnNumber>
+</Property>
+
+<Index name="IdxFileTypeField">
+<IdKey>1</IdKey>
+<Properties>TableName,FieldName</Properties>
+</Index>
+</Class>
+
+
+<Class name="OMOPDTL.TableList">
+<Super>%Persistent</Super>
+<TimeChanged>66836,54742.736068</TimeChanged>
+<TimeCreated>66834,42114.5197061</TimeCreated>
+
+<Property name="TableName">
+<Type>%String</Type>
+<SqlColumnNumber>2</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="TableAbbr">
+<Type>%String</Type>
+<SqlColumnNumber>3</SqlColumnNumber>
+<Parameter name="MAXLEN" value="10"/>
+</Property>
+
+<Property name="SchemaName">
+<Type>%String</Type>
+<SqlColumnNumber>4</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="KeyColumns">
+<Type>%String</Type>
+<SqlColumnNumber>5</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Property name="TableType">
+<Type>%String</Type>
+<SqlColumnNumber>6</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="SourceTableName">
+<Type>%String</Type>
+<SqlColumnNumber>7</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="SourceSchemaName">
+<Type>%String</Type>
+<SqlColumnNumber>8</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="LoadSeq">
+<Type>%Integer</Type>
+<SqlColumnNumber>9</SqlColumnNumber>
+</Property>
+
+<Index name="PK_TableList">
+<IdKey>1</IdKey>
+<Properties>TableName,SchemaName</Properties>
+</Index>
+</Class>
+
+
+<Class name="OMOPDTL.TableLoadLog">
+<Super>%Persistent</Super>
+<TimeChanged>66836,46872.7454117</TimeChanged>
+<TimeCreated>66836,38945.8780129</TimeCreated>
+
+<Property name="TableName">
+<Type>%String</Type>
+<SqlColumnNumber>2</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="StartTime">
+<Type>%DateTime</Type>
+<SqlColumnNumber>3</SqlColumnNumber>
+</Property>
+
+<Property name="EndTime">
+<Type>%DateTime</Type>
+<SqlColumnNumber>4</SqlColumnNumber>
+</Property>
+</Class>
+
+
+<Class name="OMOPDTL.Utils">
+<Language>objectscript</Language>
+<Super>%Base</Super>
+<TimeChanged>66952,31265.0539723</TimeChanged>
+<TimeCreated>66820,56726.1337056</TimeCreated>
+
+<UDLText name="T">
+<Content><![CDATA[/* ETLメイン処理 */
+]]></Content>
+</UDLText>
+
+<Method name="EtlMain">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pStart:%Integer,pEnd:%Integer</FormalSpec>
+<Language>objectscript</Language>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  try {
+
+	  	/// JobStepListテーブルから実行するステップの一覧を抽出
+		SET script1 = "SELECT StepOrder, StepOrderSeq, StepName, ExecutionClassMethod, ExecutionParameter FROM OMOPDTL.JobStepList "_
+				  "WHERE StepOrder BETWEEN ? AND ? "_
+				  "ORDER BY StepOrder, StepOrderSeq"
+    	SET stmt1=##class(%SQL.Statement).%New()
+    	SET status1=stmt1.%Prepare(script1)
+    	IF status1'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status1) QUIT}
+    	SET rset1=stmt1.%Execute(pStart,pEnd)
+
+    	WHILE rset1.%Next()
+  			{
+	  			SET order = rset1.StepOrder
+	  			SET orderseq = rset1.StepOrderSeq
+	  			SET stepname = rset1.StepName
+	  			SET classmethod = rset1.ExecutionClassMethod
+	  			SET parameter = rset1.ExecutionParameter
+	  			/// 開始時刻をセット
+			    SET starttime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
+
+	  			/// ExecutionClassMethodの値を基に、クラスメソッドを実行
+	  			SET exec=$CLASSMETHOD("OMOPDTL.Utils", classmethod, parameter)
+	  			
+				/// 終了時刻をセット
+    			SET endtime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
+    
+   				/// 実行ログを OMOPDTL.ExecutionLog に書き込み
+				SET starttimelt = $ZDATETIME(starttime, 3, 1, 3)
+				SET endtimelt = $ZDATETIME(endtime, 3, 1, 3)
+	
+    			SET logstmt=##class(%SQL.Statement).%New()
+    
+    			SET status=logstmt.%Prepare("INSERT INTO OMOPDTL.ExecutionLog VALUES (?, ?, ?, ?)")
+    			IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    			SET logrset=logstmt.%Execute(order, stepname, starttimelt, endtimelt)
+				
+	  		}
+
+  }
+
+  Catch e {
+	do e.OutputToDevice()
+	zwrite   
+  }
+
+  QUIT status1
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/* マッピングテーブルデータをExcelファイルからOMOPDTL.F2OMapへロード */
+]]></Content>
+</UDLText>
+
+<Method name="LoadMappingTable">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pFilePath:%String</FormalSpec>
+<Language>python</Language>
+<Implementation><![CDATA[
+
+	# ライブラリのインポート
+	import iris
+	import pandas as pd
+	import pyodbc
+	
+	input_file = pd.ExcelFile(pFilePath)
+	sheet_names = input_file.sheet_names
+
+	sheet_df = input_file.parse(sheet_names)
+	
+	# ODBC接続定義
+	server = 'localhost'
+	database = 'TEST'
+	username = '_SYSTEM'
+	password = 'irispass'
+	cnxn = pyodbc.connect('DRIVER={InterSystems IRIS ODBC35};SERVER='+server +
+                      ';DATABASE='+database+';UID='+username+';PWD=' + password)
+	cursor = cnxn.cursor()
+
+	for i, name in enumerate(sheet_names):
+		sheet_df[i] = input_file.parse(name)
+
+		# シート名が"List"以外のシートを読み込み
+		if name != 'List':
+			for index, row in sheet_df[i].iterrows():
+				cursor.execute("INSERT OR UPDATE OMOPDTL.F2OMap (Key, Source_Code, Source_Name, OMOP_Concept_Id) values(?,?,?,?)", name, row.Source_Code, row.Source_Name, row.OMOP_Concept_Id)
+
+	cnxn.commit()
+	cursor.close()
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/* 項目バリデーション (入力必須カラムのNULLチェック、参照先テーブルのレコード存在チェック) */
+]]></Content>
+</UDLText>
+
+<Method name="ValidateData">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pValidateType:%Integer</FormalSpec>
+<Language>objectscript</Language>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  try {
+		
+	  	/// JobStepListテーブルから実行するステップの一覧を抽出
+		SET script1 = "SELECT "_
+		          "vdc.StepOrder as StepOrder, "_
+		          "vdc.StepOrderSeq as StepOrderSeq, "_
+		          "vdc.ValidateType as ValidateType, "_
+		          "tl1.SchemaName as ValidateSchema, "_
+		          "vdc.ValidateTable as ValidateTable, "_
+		          "tl1.TableAbbr as ValidateTableAbbr, "_
+		          "vdc.ValidateColumn as ValidateColumn, "_
+		          "tl1.KeyColumns as ValidateTableKeys, "_
+		          "tl2.SchemaName as CrossCheckSchema, "_
+		          "tl2.TableName as CrossCheckTable,"_
+		          "tl2.TableAbbr as CrossCheckTableAbbr, "_
+		          "tl2.KeyColumns as CrossCheckKeys "_
+		          "FROM OMOPDTL.ValidateDataConfig vdc "_
+		          "LEFT OUTER JOIN OMOPDTL.TableList tl1 ON vdc.ValidateTable = tl1.TableName "_
+		          "LEFT OUTER JOIN OMOPDTL.TableList tl2 ON vdc.CrossCheckTable  = tl2.TableName  "_
+				  "WHERE vdc.ValidateType = ? "_
+				  "ORDER BY vdc.StepOrder, vdc.StepOrderSeq"
+
+    	SET stmt1=##class(%SQL.Statement).%New()
+    	SET status=stmt1.%Prepare(script1)
+    	IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    	SET rset1=stmt1.%Execute(pValidateType)
+
+		/// 読み込んだ行ごとにエラーチェックのSQL実行
+    	WHILE rset1.%Next()
+  			{
+	  			SET order = rset1.StepOrder
+	  			SET seq = rset1.StepOrderSeq
+	  			SET type = rset1.ValidateType
+	  			SET schema = rset1.ValidateSchema
+	  			SET table = rset1.ValidateTable
+	  			SET column = rset1.ValidateColumn
+	  			SET abbr = rset1.ValidateTableAbbr
+	  			SET key = rset1.ValidateTableKeys
+	  			
+	  			SET ccschema = rset1.CrossCheckSchema
+	  			SET cctable = rset1.CrossCheckTable
+	  			SET ccabbr = rset1.CrossCheckTableAbbr
+	  			SET cckey = rset1.CrossCheckKeys
+
+				IF type = 1 {
+		  			SET script2 = "INSERT INTO OMOPDTL.ValidationError "_
+		  						  "(TableName, TableId, ColumnName, ErrorReason, ExecutionDateTime) "_
+	  							  "SELECT '"_table_"', "_key_", '"_column_"','必須項目値がNULL', NOW()"_
+	  							  " FROM "_schema_"."_table_
+	  							  " WHERE "_column_" IS NULL"
+				}
+				ELSEIF type = 2 {
+		  			SET script2 = "INSERT INTO OMOPDTL.ValidationError "_
+		  						  "(TableName, TableId, ColumnName, ErrorReason, ExecutionDateTime) "_
+	  							  "SELECT '"_table_"', "_key_", '"_column_"','参照先に存在しない (参照先: "_cctable_")', NOW()"_
+		  						  " FROM "_schema_"."_table_" "_abbr_
+	  							  " LEFT OUTER JOIN "_ccschema_"."_cctable_" "_ccabbr_
+	  							  " ON "_abbr_"."_column_" = "_ccabbr_"."_cckey_
+	  							  " WHERE "_abbr_"."_column_" IS NULL"_
+	  							  " OR "_abbr_"."_column_" < 0"
+				}
+				/// write order, seq, table & column for debug purpose
+				/// WRITE order_" | "_seq_" | "_table_" | "_column, !, script2, !, !
+				
+		    	SET stmt2=##class(%SQL.Statement).%New()
+    			SET status=stmt2.%Prepare(script2)
+    			IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    			SET rset2=stmt2.%Execute()
+
+	  		}
+
+  }
+
+  Catch e {
+	do e.OutputToDevice()
+	zwrite   
+  }
+
+  QUIT status
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/* ソースデータをOMOPテーブルにロード */
+]]></Content>
+</UDLText>
+
+<Method name="LoadOmopTable">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pTableType:%String</FormalSpec>
+<Language>objectscript</Language>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+	try {
+
+	/// 対象テーブルのリストを取得
+	SET tabletype = pTableType
+	SET script1 = "SELECT t.TableType, t.SourceSchemaName, t.SourceTableName, t.SchemaName, t.TableName, "_
+				  "LIST(CASE WHEN tf.IsTextToDate = 1 THEN 'TO_DATE(' || tf.FieldName || ', ''YYYYMMDD'')' ELSE tf.FieldName END) AS SourceFieldList, "_
+				  "LIST(tf.FieldName) AS TargetFieldList "_
+				  "FROM OMOPDTL.TableList t "_
+				  "INNER JOIN OMOPDTL.TableFieldList tf ON t.TableName = tf.TableName "_
+				  "WHERE t.TableType = ? "_
+				  "GROUP BY t.TableType, t.SourceSchemaName, t.SourceTableName, t.SchemaName, t.TableName "_
+				  "ORDER BY t.LoadSeq"
+    SET stmt=##class(%SQL.Statement).%New()
+    SET status=stmt.%Prepare(script1)
+    IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    SET rset=stmt.%Execute(tabletype)
+    
+    /// Vocabularyテーブルのロードの場合は、先にターゲットテーブルをTRUNCATEする
+    IF tabletype="Vocabulary"  {
+	    do ..TruncateOmopTable(tabletype)
+	    }
+    
+    
+    WHILE rset.%Next()
+  		{
+	  		
+		/// SQL文(INSERT OR UPDATE)の生成
+		SET sourceschema = rset.SourceSchemaName
+		SET sourcetable = rset.SourceTableName
+		SET sourcefieldlist = rset.SourceFieldList
+		SET targetschema = rset.SchemaName
+		SET targettable = rset.TableName
+		SET targetfieldlist = rset.TargetFieldList
+
+		SET script2 = "INSERT OR UPDATE %NOCHECK %NOJOURN %NOLOCK "_targetschema_"."_targettable_
+					 " ("_targetfieldlist_") "_
+					 "SELECT "_sourcefieldlist_" "_
+					 "FROM "_sourceschema_"."_sourcetable
+			
+		/// INSERT OR UPDATE文の実行
+		do ..ExecLoadSql(targettable, script2)
+
+  		}
+  	}
+  	
+	Catch e {
+		do e.OutputToDevice()
+		zwrite   
+ 	}
+
+ 	QUIT status
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/* OMOPテーブルロード用SQL文の実行 */
+]]></Content>
+</UDLText>
+
+<Method name="ExecLoadSql">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pTable:%String,pScript:%String</FormalSpec>
+<Language>objectscript</Language>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+  try {
+    SET status = $$$OK 
+	SET tablename = pTable
+	/// 開始時刻をセット
+    SET starttime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
+
+    SET statemt=##class(%SQL.Statement).%New()
+    
+    SET status=statemt.%Prepare(pScript) 
+    IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    SET rset=statemt.%Execute()
+    
+	/// 終了時刻をセット
+    SET endtime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
+    
+    /// 実行ログを OMOPDTL.TableLoadLog に書き込み
+	SET starttimelt = $ZDATETIME(starttime, 3, 1, 3)
+	SET endtimelt = $ZDATETIME(endtime, 3, 1, 3)
+	
+    SET logstmt=##class(%SQL.Statement).%New()
+    
+    SET status=logstmt.%Prepare("INSERT INTO OMOPDTL.TableLoadLog VALUES (?, ?, ?)")
+    IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    SET logrset=logstmt.%Execute(tablename, starttimelt, endtimelt)
+    
+  }
+  Catch e {
+	do e.OutputToDevice()
+	zwrite   
+  }
+
+  QUIT status
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[/* OMOPテーブルのTRUNCATE */
+]]></Content>
+</UDLText>
+
+<Method name="TruncateOmopTable">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pTableType:%String</FormalSpec>
+<Language>objectscript</Language>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	
+	try {
+
+	/// 対象テーブルのリストを取得
+	SET tabletype = pTableType
+	SET script1 = "SELECT t.TableType, t.SchemaName, t.TableName "_
+				  "FROM OMOPDTL.TableList t "_
+				  "WHERE t.TableType = ? "_
+				  "ORDER BY t.LoadSeq DESC"
+    SET stmt=##class(%SQL.Statement).%New()
+    SET status=stmt.%Prepare(script1)
+    IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    SET rset=stmt.%Execute(tabletype)
+    
+    
+    WHILE rset.%Next()
+  		{
+	  		
+		/// SQL文(TRUNCATE TABLE)の生成
+		SET targetschema = rset.SchemaName
+		SET targettable = rset.TableName
+
+		SET script2 = "TRUNCATE TABLE %NOCHECK %NOLOCK %NOJOURN "_targetschema_"."_targettable
+			
+		/// TRUNCATE TABLE文の実行
+	    SET stmt2=##class(%SQL.Statement).%New()
+    	SET status=stmt2.%Prepare(script2)
+    	IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    	SET rset2=stmt2.%Execute()
+
+  		}
+  	}
+  	
+	Catch e {
+		do e.OutputToDevice()
+		zwrite   
+ 	}
+
+ 	QUIT status
+]]></Implementation>
+</Method>
+
+</Class>
+
+
+<Class name="OMOPDTL.ValidateDataConfig">
+<Super>%Persistent</Super>
+<TimeChanged>66835,60124.762081</TimeChanged>
+<TimeCreated>66834,41871.1301592</TimeCreated>
+
+<Property name="StepOrder">
+<Type>%Integer</Type>
+<SqlColumnNumber>2</SqlColumnNumber>
+</Property>
+
+<Property name="StepOrderSeq">
+<Type>%Integer</Type>
+<SqlColumnNumber>3</SqlColumnNumber>
+</Property>
+
+<Property name="ValidateType">
+<Type>%Integer</Type>
+<SqlColumnNumber>4</SqlColumnNumber>
+</Property>
+
+<Property name="ValidateTable">
+<Type>%String</Type>
+<SqlColumnNumber>5</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Property name="ValidateColumn">
+<Type>%String</Type>
+<SqlColumnNumber>6</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Property name="CrossCheckTable">
+<Type>%String</Type>
+<SqlColumnNumber>7</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Property name="Description">
+<Type>%String</Type>
+<SqlColumnNumber>8</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Index name="PK_ValidateDataConfig">
+<IdKey>1</IdKey>
+<Properties>StepOrder,StepOrderSeq</Properties>
+</Index>
+</Class>
+
+
+<Class name="OMOPDTL.ValidationError">
+<Super>%Persistent</Super>
+<TimeChanged>66834,71766.0265624</TimeChanged>
+<TimeCreated>66834,69151.9729707</TimeCreated>
+
+<Property name="TableName">
+<Type>%String</Type>
+<SqlColumnNumber>2</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="TableId">
+<Type>%BigInt</Type>
+<SqlColumnNumber>3</SqlColumnNumber>
+</Property>
+
+<Property name="ColumnName">
+<Type>%String</Type>
+<SqlColumnNumber>4</SqlColumnNumber>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="ErrorReason">
+<Type>%String</Type>
+<SqlColumnNumber>5</SqlColumnNumber>
+<Parameter name="MAXLEN" value="255"/>
+</Property>
+
+<Property name="ExecutionDateTime">
+<Type>%DateTime</Type>
+<SqlColumnNumber>6</SqlColumnNumber>
+</Property>
+</Class>
+</Export>

@@ -1,0 +1,83 @@
+{
+  "name": "OmopTransform_Condition",
+  "scanId": 3,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "Condition",
+      "columns": [
+        {
+          "name": "SubjectReference",
+          "type": "String",
+          "path": "Condition.subject.reference",
+          "index": false
+        },
+        {
+          "name": "MetaLastUpdated",
+          "type": "String",
+          "path": "Condition.meta.lastUpdated",
+          "index": false
+        },
+        {
+          "name": "CodeCodingCode",
+          "type": "String",
+          "path": "Condition.code.coding.code",
+          "index": false
+        },
+        {
+          "name": "CodeText",
+          "type": "String",
+          "path": "Condition.code.text",
+          "index": false
+        },
+        {
+          "name": "ClinicalStatusCodingCode",
+          "type": "String",
+          "path": "Condition.clinicalStatus.coding.code",
+          "index": false
+        },
+        {
+          "name": "SeverityCodingCode",
+          "type": "String",
+          "path": "Condition.severity.coding.code",
+          "index": false
+        },
+        {
+          "name": "SeverityCodingDisplay",
+          "type": "String",
+          "path": "Condition.severity.coding.display",
+          "index": false
+        },
+        {
+          "name": "BodySiteText",
+          "type": "String",
+          "path": "Condition.bodySite.text",
+          "index": false
+        },
+        {
+          "name": "RecordedDate",
+          "type": "String",
+          "path": "Condition.recordedDate",
+          "index": false
+        },
+        {
+          "name": "EvidenceCodeText",
+          "type": "String",
+          "path": "Condition.evidence.code.text",
+          "index": false
+        },
+        {
+          "name": "MetaProfile",
+          "type": "String",
+          "path": "Condition.meta.profile",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2023-12-15T06:43:09Z",
+  "scanFHIRRepositoryName": "OmopRepo",
+  "id": 24,
+  "lastModified": "2023-12-25T04:40:17.005Z"
+}

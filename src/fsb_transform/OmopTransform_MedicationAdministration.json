@@ -1,0 +1,218 @@
+{
+  "name": "OmopTransform_MedicationAdministration",
+  "scanId": 3,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "MedicationAdministration",
+      "columns": [
+        {
+          "name": "SubjectReference",
+          "type": "String",
+          "path": "MedicationAdministration.subject.reference",
+          "index": false
+        },
+        {
+          "name": "MedicationCodeableConceptCodingCode",
+          "type": "String",
+          "path": "MedicationAdministration.medicationCodeableConcept.coding.code",
+          "index": false
+        },
+        {
+          "name": "MedicationCodeableConceptCodingDisplay",
+          "type": "String",
+          "path": "MedicationAdministration.medicationCodeableConcept.coding.display",
+          "index": false
+        },
+        {
+          "name": "EffectivePeriodStart",
+          "type": "String",
+          "path": "MedicationAdministration.effectivePeriod.start",
+          "index": false
+        },
+        {
+          "name": "EffectivePeriodEnd",
+          "type": "String",
+          "path": "MedicationAdministration.effectivePeriod.end",
+          "index": false
+        },
+        {
+          "name": "DosageDoseValue",
+          "type": "Number",
+          "path": "MedicationAdministration.dosage.dose.value",
+          "index": false
+        },
+        {
+          "name": "PerformerActorReference",
+          "type": "String",
+          "path": "MedicationAdministration.performer.actor.reference",
+          "index": false
+        },
+        {
+          "name": "DosageDoseUnit",
+          "type": "String",
+          "path": "MedicationAdministration.dosage.dose.unit",
+          "index": false
+        },
+        {
+          "name": "EffectiveDateTime",
+          "type": "String",
+          "path": "MedicationAdministration.effectiveDateTime",
+          "index": false
+        },
+        {
+          "name": "MetaLastUpdated",
+          "type": "String",
+          "path": "MedicationAdministration.meta.lastUpdated",
+          "index": false
+        },
+        {
+          "name": "MetaProfile",
+          "type": "String",
+          "path": "MedicationAdministration.meta.profile",
+          "index": false
+        },
+        {
+          "name": "ContainedMedicationIngredientItemCodeableConceptCodingCode",
+          "type": "String",
+          "path": "MedicationAdministration.contained.Medication.ingredient.itemCodeableConcept.coding.code",
+          "index": false
+        },
+        {
+          "name": "ContainedMedicationIngredientItemCodeableConceptCodingDisplay",
+          "type": "String",
+          "path": "MedicationAdministration.contained.Medication.ingredient.itemCodeableConcept.coding.display",
+          "index": false
+        },
+        {
+          "name": "ContainedMedicationIngredientStrengthNumeratorValue",
+          "type": "Number",
+          "path": "MedicationAdministration.contained.Medication.ingredient.strength.numerator.value",
+          "index": false
+        },
+        {
+          "name": "ContainedMedicationIngredientStrengthNumeratorUnit",
+          "type": "String",
+          "path": "MedicationAdministration.contained.Medication.ingredient.strength.numerator.unit",
+          "index": false
+        },
+        {
+          "name": "ContainedMedicationIngredientStrengthNumeratorCode",
+          "type": "String",
+          "path": "MedicationAdministration.contained.Medication.ingredient.strength.numerator.code",
+          "index": false
+        },
+        {
+          "name": "ContainedMedicationIngredientStrengthDenominatorValue",
+          "type": "Number",
+          "path": "MedicationAdministration.contained.Medication.ingredient.strength.denominator.value",
+          "index": false
+        },
+        {
+          "name": "ContainedMedicationIngredientStrengthDenominatorUnit",
+          "type": "String",
+          "path": "MedicationAdministration.contained.Medication.ingredient.strength.denominator.unit",
+          "index": false
+        },
+        {
+          "name": "ContainedMedicationIngredientStrengthDenominatorCode",
+          "type": "String",
+          "path": "MedicationAdministration.contained.Medication.ingredient.strength.denominator.code",
+          "index": false
+        },
+        {
+          "name": "IdentifierValue",
+          "type": "String",
+          "path": "MedicationAdministration.identifier.value",
+          "index": false
+        },
+        {
+          "name": "Status",
+          "type": "String",
+          "path": "MedicationAdministration.status",
+          "index": false
+        },
+        {
+          "name": "CategoryCodingCode",
+          "type": "String",
+          "path": "MedicationAdministration.category.coding.code",
+          "index": false
+        },
+        {
+          "name": "CategoryCodingDisplay",
+          "type": "String",
+          "path": "MedicationAdministration.category.coding.display",
+          "index": false
+        }
+      ],
+      "subTables": [
+        {
+          "name": "ContainedMedicationIngredients",
+          "path": "MedicationAdministration.contained.Medication.ingredient",
+          "columns": [
+            {
+              "type": "String",
+              "path": "itemCodeableConcept.coding.system",
+              "name": "ItemCodeableConceptCodingSystem"
+            },
+            {
+              "type": "String",
+              "path": "itemCodeableConcept.coding.code",
+              "name": "ItemCodeableConceptCodingCode"
+            },
+            {
+              "type": "String",
+              "path": "itemCodeableConcept.coding.display",
+              "name": "ItemCodeableConceptCodingDisplay"
+            },
+            {
+              "type": "Number",
+              "path": "strength.numerator.value",
+              "name": "StrengthNumeratorValue"
+            },
+            {
+              "type": "String",
+              "path": "strength.numerator.unit",
+              "name": "StrengthNumeratorUnit"
+            },
+            {
+              "type": "String",
+              "path": "strength.numerator.system",
+              "name": "StrengthNumeratorSystem"
+            },
+            {
+              "type": "String",
+              "path": "strength.numerator.code",
+              "name": "StrengthNumeratorCode"
+            },
+            {
+              "type": "Number",
+              "path": "strength.denominator.value",
+              "name": "StrengthDenominatorValue"
+            },
+            {
+              "type": "String",
+              "path": "strength.denominator.unit",
+              "name": "StrengthDenominatorUnit"
+            },
+            {
+              "type": "String",
+              "path": "strength.denominator.system",
+              "name": "StrengthDenominatorSystem"
+            },
+            {
+              "type": "String",
+              "path": "strength.denominator.code",
+              "name": "StrengthDenominatorCode"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2023-12-15T06:43:09Z",
+  "scanFHIRRepositoryName": "OmopRepo",
+  "id": 19,
+  "lastModified": "2023-12-25T05:28:20.74Z"
+}

@@ -1,0 +1,125 @@
+{
+  "name": "OmopTransform_Procedure",
+  "scanId": 3,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "Procedure",
+      "columns": [
+        {
+          "name": "MetaLastUpdated",
+          "type": "String",
+          "path": "Procedure.meta.lastUpdated",
+          "index": false
+        },
+        {
+          "name": "SubjectReference",
+          "type": "String",
+          "path": "Procedure.subject.reference",
+          "index": false
+        },
+        {
+          "name": "CodeCodingCode",
+          "type": "String",
+          "path": "Procedure.code.coding.code",
+          "index": false
+        },
+        {
+          "name": "CodeText",
+          "type": "String",
+          "path": "Procedure.code.text",
+          "index": false
+        },
+        {
+          "name": "PerformedDateTime",
+          "type": "String",
+          "path": "Procedure.performedDateTime",
+          "index": false
+        },
+        {
+          "name": "CodeCodingSystem",
+          "type": "String",
+          "path": "Procedure.code.coding.system",
+          "index": false
+        },
+        {
+          "name": "CategoryCodingCode",
+          "type": "String",
+          "path": "Procedure.category.coding.code",
+          "index": false
+        },
+        {
+          "name": "CategoryCodingDisplay",
+          "type": "String",
+          "path": "Procedure.category.coding.display",
+          "index": false
+        },
+        {
+          "name": "CategoryText",
+          "type": "String",
+          "path": "Procedure.category.text",
+          "index": false
+        },
+        {
+          "name": "BodySiteText",
+          "type": "String",
+          "path": "Procedure.bodySite.text",
+          "index": false
+        },
+        {
+          "name": "OutcomeCodingCode",
+          "type": "String",
+          "path": "Procedure.outcome.coding.code",
+          "index": false
+        },
+        {
+          "name": "OutcomeCodingSystem",
+          "type": "String",
+          "path": "Procedure.outcome.coding.system",
+          "index": false
+        },
+        {
+          "name": "OutcomeCodingDisplay",
+          "type": "String",
+          "path": "Procedure.outcome.coding.display",
+          "index": false
+        },
+        {
+          "name": "FollowUpText",
+          "type": "String",
+          "path": "Procedure.followUp.text",
+          "index": false
+        },
+        {
+          "name": "MetaProfile",
+          "type": "String",
+          "path": "Procedure.meta.profile",
+          "index": false
+        }
+      ],
+      "subTables": [
+        {
+          "name": "CodeCodings",
+          "path": "Procedure.code.coding",
+          "columns": [
+            {
+              "type": "String",
+              "path": "system",
+              "name": "System"
+            },
+            {
+              "type": "String",
+              "path": "code",
+              "name": "Code"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2023-12-15T06:43:09Z",
+  "scanFHIRRepositoryName": "OmopRepo",
+  "id": 20,
+  "lastModified": "2023-12-25T05:43:12.142Z"
+}

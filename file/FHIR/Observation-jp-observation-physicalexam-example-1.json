@@ -1,0 +1,70 @@
+{
+  "resourceType": "Observation",
+  "id": "jp-observation-physicalexam-example-1",
+  "meta": {
+    "profile": [
+      "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_PhysicalExam"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"jp-observation-physicalexam-example-1\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation \"jp-observation-physicalexam-example-1\" </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-jp-observation-physicalexam.html\">JP Core Observation PhysicalExam Profile</a></p></div><p><b>status</b>: final</p><p><b>category</b>: Exam <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/4.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#exam)</span></p><p><b>code</b>: Physical Findings <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-physicalexamcode-cs.html\">JP Core Physical Exam Code CodeSystem</a>#physical-findings)</span></p><p><b>subject</b>: <a href=\"Patient-jp-patient-example-1.html\">Patient/jp-patient-example-1</a> \" 山田\"</p><p><b>encounter</b>: <a href=\"Encounter-jp-encounter-example-1.html\">Encounter/jp-encounter-example-1</a></p><p><b>effective</b>: 2021-07-09 05:00:00+0900</p><p><b>value</b>: Yes <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/4.0.0/CodeSystem-v2-0532.html\">expandedYes-NoIndicator</a>#Y)</span></p><p><b>bodySite</b>: 下腹部 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ()</span></p><p><b>method</b>: 触診 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ()</span></p><h3>Components</h3><table class=\"grid\"><tr><td>-</td><td><b>Code</b></td><td><b>Value[x]</b></td></tr><tr><td>*</td><td>Detailed Physical Findings <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-physicalexamcode-cs.html\">JP Core Physical Exam Code CodeSystem</a>#detailed-physical-findings)</span></td><td>圧痛あり</td></tr></table></div>"
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "exam",
+          "display": "Exam"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_PhysicalExamCode_CS",
+        "code": "physical-findings",
+        "display": "Physical Findings"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/jp-patient-example-1"
+  },
+  "encounter": {
+    "reference": "Encounter/jp-encounter-example-1"
+  },
+  "effectiveDateTime": "2021-07-09T17:00:00+09:00",
+  "valueCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/v2-0532",
+        "code": "Y",
+        "display": "Yes"
+      }
+    ]
+  },
+  "bodySite": {
+    "text": "下腹部"
+  },
+  "method": {
+    "text": "触診"
+  },
+  "component": [
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_PhysicalExamCode_CS",
+            "code": "detailed-physical-findings",
+            "display": "Detailed Physical Findings"
+          }
+        ]
+      },
+      "valueString": "圧痛あり"
+    }
+  ]
+}

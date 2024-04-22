@@ -1,0 +1,60 @@
+{
+  "resourceType": "Observation",
+  "id": "jp-observation-vitalsigns-example-1",
+  "meta": {
+    "profile": [
+      "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_VitalSigns"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"jp-observation-vitalsigns-example-1\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation \"jp-observation-vitalsigns-example-1\" </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-jp-observation-vitalsigns.html\">JP Core Observation VitalSigns Profile</a></p></div><p><b>status</b>: final</p><p><b>category</b>: 呼吸機能 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (JP_ObservationVitalSignsCategory_CS#respiratory-function)</span></p><p><b>code</b>: 呼吸数 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (localcode#abc-local-456; <a href=\"https://loinc.org/\">LOINC</a>#9279-1 \"Respiratory rate\"; unknown#31001369)</span></p><p><b>subject</b>: <a href=\"Patient-jp-patient-example-1.html\">Patient/jp-patient-example-1</a> \" 山田\"</p><p><b>encounter</b>: <a href=\"Encounter-jp-encounter-example-1.html\">Encounter/jp-encounter-example-1</a></p><p><b>effective</b>: 2021-10-19 10:00:00+0900</p><p><b>performer</b>: <a href=\"Practitioner-jp-practitioner-example-male-2.html\">Practitioner/jp-practitioner-example-male-2</a> \" 愛知\"</p><p><b>value</b>: 400 回</p></div>"
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_ObservationVitalSignsCategory_CS",
+          "code": "respiratory-function",
+          "display": "呼吸機能"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://abc-hospital.local/fhir/Observation/localcode",
+        "code": "abc-local-456",
+        "display": "呼吸数"
+      },
+      {
+        "system": "http://loinc.org",
+        "code": "9279-1",
+        "display": "Respiratory rate"
+      },
+      {
+        "system": "urn:oid:1.2.392.200119.4.804",
+        "code": "31001369",
+        "display": "呼吸数"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/jp-patient-example-1"
+  },
+  "encounter": {
+    "reference": "Encounter/jp-encounter-example-1"
+  },
+  "effectiveDateTime": "2021-10-19T10:00:00+09:00",
+  "performer": [
+    {
+      "reference": "Practitioner/jp-practitioner-example-male-2"
+    }
+  ],
+  "valueQuantity": {
+    "value": 400,
+    "unit": "回"
+  }
+}

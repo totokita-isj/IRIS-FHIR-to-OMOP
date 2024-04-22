@@ -1,0 +1,112 @@
+{
+  "name": "OmopTransform_Observation",
+  "scanId": 3,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "Observation",
+      "columns": [
+        {
+          "name": "MetaLastUpdated",
+          "type": "String",
+          "path": "Observation.meta.lastUpdated",
+          "index": false
+        },
+        {
+          "name": "MetaProfile",
+          "type": "String",
+          "path": "Observation.meta.profile",
+          "index": false
+        },
+        {
+          "name": "SubjectReference",
+          "type": "String",
+          "path": "Observation.subject.reference",
+          "index": false
+        },
+        {
+          "name": "EffectiveDateTime",
+          "type": "String",
+          "path": "Observation.effectiveDateTime",
+          "index": false
+        },
+        {
+          "name": "ValueQuantityValue",
+          "type": "Number",
+          "path": "Observation.valueQuantity.value",
+          "index": false
+        },
+        {
+          "name": "ValueQuantityUnit",
+          "type": "String",
+          "path": "Observation.valueQuantity.unit",
+          "index": false
+        },
+        {
+          "name": "ReferenceRangeLowValue",
+          "type": "Number",
+          "path": "Observation.referenceRange.low.value",
+          "index": false
+        },
+        {
+          "name": "ReferenceRangeHighValue",
+          "type": "Number",
+          "path": "Observation.referenceRange.high.value",
+          "index": false
+        },
+        {
+          "name": "ReferenceRangeTypeCodingDisplay",
+          "type": "String",
+          "path": "Observation.referenceRange.type.coding.display",
+          "index": false
+        },
+        {
+          "name": "ReferenceRangeTypeCodingCode",
+          "type": "String",
+          "path": "Observation.referenceRange.type.coding.code",
+          "index": false
+        },
+        {
+          "name": "PerformerReference",
+          "type": "String",
+          "path": "Observation.performer.reference",
+          "index": false
+        },
+        {
+          "name": "EncounterReference",
+          "type": "String",
+          "path": "Observation.encounter.reference",
+          "index": false
+        }
+      ],
+      "subTables": [
+        {
+          "name": "CodeCodings",
+          "path": "Observation.code.coding",
+          "columns": [
+            {
+              "type": "String",
+              "path": "system",
+              "name": "System"
+            },
+            {
+              "type": "String",
+              "path": "code",
+              "name": "Code"
+            },
+            {
+              "type": "String",
+              "path": "display",
+              "name": "Display"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2023-12-15T06:43:09Z",
+  "scanFHIRRepositoryName": "OmopRepo",
+  "id": 21,
+  "lastModified": "2023-12-25T00:23:30.898Z"
+}

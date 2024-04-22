@@ -1,0 +1,65 @@
+{
+  "name": "OmopTransform_Practitioner",
+  "scanId": 3,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "Practitioner",
+      "columns": [
+        {
+          "name": "IdentifierValue",
+          "type": "String",
+          "path": "Practitioner.identifier.value",
+          "index": false
+        },
+        {
+          "name": "BirthDate",
+          "type": "String",
+          "path": "Practitioner.birthDate",
+          "index": false
+        },
+        {
+          "name": "Gender",
+          "type": "String",
+          "path": "Practitioner.gender",
+          "index": false
+        },
+        {
+          "name": "MetaLastUpdated",
+          "type": "String",
+          "path": "Practitioner.meta.lastUpdated",
+          "index": false
+        },
+        {
+          "name": "MetaProfile",
+          "type": "String",
+          "path": "Practitioner.meta.profile",
+          "index": false
+        }
+      ],
+      "subTables": [
+        {
+          "name": "PractitionerName",
+          "path": "Practitioner.name",
+          "columns": [
+            {
+              "type": "String",
+              "path": "extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation').valueCode",
+              "name": "ValueCode"
+            },
+            {
+              "type": "String",
+              "path": "text",
+              "name": "Text"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2023-12-15T06:43:09Z",
+  "scanFHIRRepositoryName": "OmopRepo",
+  "id": 13,
+  "lastModified": "2023-12-22T03:36:36.359Z"
+}

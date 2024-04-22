@@ -1,0 +1,77 @@
+{
+  "name": "OmopTransform_Encounter",
+  "scanId": 3,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "Encounter",
+      "columns": [
+        {
+          "name": "SubjectReference",
+          "type": "String",
+          "path": "Encounter.subject.reference",
+          "index": false
+        },
+        {
+          "name": "IdentifierValue",
+          "type": "String",
+          "path": "Encounter.identifier.value",
+          "index": false
+        },
+        {
+          "name": "PeriodStart",
+          "type": "String",
+          "path": "Encounter.period.start",
+          "index": false
+        },
+        {
+          "name": "PeriodEnd",
+          "type": "String",
+          "path": "Encounter.period.end",
+          "index": false
+        },
+        {
+          "name": "MetaLastUpdated",
+          "type": "String",
+          "path": "Encounter.meta.lastUpdated",
+          "index": false
+        },
+        {
+          "name": "ClassCode",
+          "type": "String",
+          "path": "Encounter.class.code",
+          "index": false
+        },
+        {
+          "name": "ParticipantIndividualReference",
+          "type": "String",
+          "path": "Encounter.participant.individual.reference",
+          "index": false
+        },
+        {
+          "name": "ServiceProviderReference",
+          "type": "String",
+          "path": "Encounter.serviceProvider.reference",
+          "index": false
+        },
+        {
+          "name": "MetaProfile",
+          "type": "String",
+          "path": "Encounter.meta.profile",
+          "index": false
+        },
+        {
+          "name": "ClassSystem",
+          "type": "String",
+          "path": "Encounter.class.system",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2023-12-15T06:43:09Z",
+  "scanFHIRRepositoryName": "OmopRepo",
+  "id": 22,
+  "lastModified": "2023-12-22T09:18:18.873Z"
+}

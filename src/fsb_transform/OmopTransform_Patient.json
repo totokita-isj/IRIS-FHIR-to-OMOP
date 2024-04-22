@@ -1,0 +1,83 @@
+{
+  "name": "OmopTransform_Patient",
+  "scanId": 3,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "Patient",
+      "columns": [
+        {
+          "name": "IdentifierValue",
+          "type": "String",
+          "path": "Patient.identifier.value",
+          "index": false
+        },
+        {
+          "name": "BirthDate",
+          "type": "String",
+          "path": "Patient.birthDate",
+          "index": false
+        },
+        {
+          "name": "Gender",
+          "type": "String",
+          "path": "Patient.gender",
+          "index": false
+        },
+        {
+          "name": "Race",
+          "type": "String",
+          "path": "Patient.race",
+          "index": false
+        },
+        {
+          "name": "AddressPostalCode",
+          "type": "String",
+          "path": "Patient.address.postalCode",
+          "index": false
+        },
+        {
+          "name": "AddressText",
+          "type": "String",
+          "path": "Patient.address.text",
+          "index": false
+        },
+        {
+          "name": "MetaLastUpdated",
+          "type": "String",
+          "path": "Patient.meta.lastUpdated",
+          "index": false
+        },
+        {
+          "name": "MetaProfile",
+          "type": "String",
+          "path": "Patient.meta.profile",
+          "index": false
+        }
+      ],
+      "subTables": [
+        {
+          "name": "PatientName",
+          "path": "Patient.name",
+          "columns": [
+            {
+              "type": "String",
+              "path": "extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation').valueCode",
+              "name": "NameCode"
+            },
+            {
+              "type": "String",
+              "path": "text",
+              "name": "Text"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2023-12-15T06:43:09Z",
+  "scanFHIRRepositoryName": "OmopRepo",
+  "id": 18,
+  "lastModified": "2023-12-22T03:35:51.158Z"
+}

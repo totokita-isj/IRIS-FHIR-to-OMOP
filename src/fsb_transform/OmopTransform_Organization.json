@@ -1,0 +1,53 @@
+{
+  "name": "OmopTransform_Organization",
+  "scanId": 3,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "Organization",
+      "columns": [
+        {
+          "name": "Name",
+          "type": "String",
+          "path": "Organization.name",
+          "index": false
+        },
+        {
+          "name": "IdentifierValue",
+          "type": "String",
+          "path": "Organization.identifier.value",
+          "index": false
+        },
+        {
+          "name": "AddressPostalCode",
+          "type": "String",
+          "path": "Organization.address.postalCode",
+          "index": false
+        },
+        {
+          "name": "AddressState",
+          "type": "String",
+          "path": "Organization.address.state",
+          "index": false
+        },
+        {
+          "name": "MetaLastUpdated",
+          "type": "String",
+          "path": "Organization.meta.lastUpdated",
+          "index": false
+        },
+        {
+          "name": "MetaProfile",
+          "type": "String",
+          "path": "Organization.meta.profile",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2023-12-15T06:43:09Z",
+  "scanFHIRRepositoryName": "OmopRepo",
+  "id": 10,
+  "lastModified": "2023-12-22T03:36:15.337Z"
+}
