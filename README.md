@@ -16,7 +16,7 @@ root/
 
 ## インストール手順
 
-1. IRIS for Health 設定
+**1. IRIS for Health 設定**
   - バージョンは2023.3以降のものを使用する
   - Pythonライブラリについて、pandas と pyodbc をインストールする必要がある  
   インストール方法はオンラインドキュメントを参照
@@ -26,14 +26,14 @@ root/
   https://docs.intersystems.com/iris20231/csp/docbookj/DocBook.UI.Page.cls?KEY=BNETODBC_intro
   - ネームスペース名は任意だが、「相互運用プロダクション用にネームスペースを有効化」を ON にして作成する
 
-2. FHIRリポジトリ作成
+**2. FHIRリポジトリ作成**
   - 1.で作成したネームスペースにリポジトリを作成する
   - Core FHIR package はバージョン4.0.1(hl7.fhir.r4.core@4.0.1)で作成する
   - 作成後に、FHIR SQL Builderでサンプリングするためのテストデータをロードする必要がある  
     コマンド例： `Set status = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/home/irisowner/file/FHIR","FHIRServer","/csp/healthshare/omop/fhir/r4")`  
     1番目の引数にテストデータのディレクトリを、3番目の引数にFHIRリポジトリのURLを指定する
 
-3. FHIR SQL Builder設定
+**3. FHIR SQL Builder設定**
     1. Repository Configuration
     - SuperUserなど管理者権限を持つアカウントを用いて、Credentials設定を作成する
     - FHIR Repository Configuration設定を作成する
@@ -66,7 +66,7 @@ root/
       | OmopTransform_Practitioner | OMOPSBPRC |  
       | OmopTransform_Procedure | OMOPSBPCD |  
 
-4. IRISオブジェクト作成
+**4. IRISオブジェクト作成**
   - `%SYSTEM.SQL.Schema` クラスの `ImportDDL` メソッドを実行して、DDLスクリプトから作成する  
   いずれも1つ目の引数はDDLスクリプトのパス、2つ目の引数は実行ログのパスを指定するよう適宜変更
     1. OMOPDTLパッケージ クラス作成
@@ -80,7 +80,7 @@ root/
     4. OMOPSTGパッケージ ビュー作成
     - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPSTG_Views_DDL.sql","/tmp/OMOPSTG_Views_DDL.log","IRIS")`
 
-5. 設定テーブルに値を投入
+**5. 設定テーブルに値を投入**
   - いずれも管理ポータル画面、SQLページの ウィザード から データ・インポート で実行
     1. OMOPDTL.JobStepList
     - CSVファイル (./file/Utils/JobStepList.csv) をロード 
