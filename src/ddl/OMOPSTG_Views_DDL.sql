@@ -106,9 +106,11 @@ SELECT
 FROM 
   OMOPSBENC.Encounter enc
   LEFT OUTER JOIN OMOPSBPAT.Patient pat ON enc.SubjectReference = 'Patient/' || pat.IdentifierValue 
+
 GO
+
 CREATE OR REPLACE VIEW OMOPSTG.v_visit_occurrence AS
-SELECT  e.ServiceProviderReference,
+SELECT 
   e.ID as visit_occurrence_id,
   p.ID as person_id,
   m.OMOP_Concept_Id as visit_concept_id,
@@ -238,7 +240,7 @@ SELECT
   	  CAST( DATEADD( 'hour', TO_NUMBER( SUBSTRING(ma.EffectiveDateTime, 20, 3) ), CAST( SUBSTRING(ma.EffectiveDateTime, 1, 10) || ' ' || SUBSTRING(ma.EffectiveDateTime, 12, 8) As TIMESTAMP) ) AS DATE ) 
   END as drug_exposure_end_date,
   CASE
-  	WHEN ma.EffectivePeriodStart IS NOT NULL
+  	WHEN ma.EffectivePeriodEnd IS NOT NULL
       THEN DATEADD( 'hour', TO_NUMBER( SUBSTRING(ma.EffectivePeriodEnd, 20, 3) ), CAST( SUBSTRING(ma.EffectivePeriodEnd, 1, 10) || ' ' || SUBSTRING(ma.EffectivePeriodEnd, 12, 8) As TIMESTAMP) ) 
   	ELSE DATEADD( 'hour', TO_NUMBER( SUBSTRING(ma.EffectiveDateTime, 20, 3) ), CAST( SUBSTRING(ma.EffectiveDateTime, 1, 10) || ' ' || SUBSTRING(ma.EffectiveDateTime, 12, 8) As TIMESTAMP) ) 
   END as drug_exposure_end_datetime,
@@ -339,7 +341,7 @@ CREATE OR REPLACE VIEW OMOPSTG.v_measurement_labresult AS
 SELECT 
   obs.ID as measurement_id,
   pat.ID as person_id,
-  cc.Code as measurement_concept_id,
+  map1.OMOP_Concept_Id as measurement_concept_id,
   CAST( DATEADD( 'hour', TO_NUMBER( SUBSTRING(obs.EffectiveDateTime, 20, 3) ), CAST( SUBSTRING(obs.EffectiveDateTime, 1, 10) || ' ' || SUBSTRING(obs.EffectiveDateTime, 12, 8) As TIMESTAMP) ) AS DATE) as measurement_date,
   DATEADD( 'hour', TO_NUMBER( SUBSTRING(obs.EffectiveDateTime, 20, 3) ), CAST( SUBSTRING(obs.EffectiveDateTime, 1, 10) || ' ' || SUBSTRING(obs.EffectiveDateTime, 12, 8) As TIMESTAMP) ) as measurement_datetime,
   TO_CHAR( DATEADD( 'hour', TO_NUMBER( SUBSTRING(obs.EffectiveDateTime, 20, 3) ), CAST( SUBSTRING(obs.EffectiveDateTime, 1, 10) || ' ' || SUBSTRING(obs.EffectiveDateTime, 12, 8) As TIMESTAMP) ), 'HH24:MI') as measurement_time,
