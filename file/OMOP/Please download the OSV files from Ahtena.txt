@@ -1,0 +1,2 @@
+一部のファイルはGitHubの制限(100MB)を超えるサイズのため、OSVファイルについてはGitHubに配置しておりません。
+必要であれば、Athena( https://athena.ohdsi.org/ )のDOWNLOADページからダウンロードしてください。
