@@ -1,6 +1,8 @@
 CREATE FOREIGN SERVER OMOPFT.ForeignServer TYPE 'FILE'
 FOREIGN DATA WRAPPER CSV HOST 'C://test/omopfile'
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.concept
 (
     concept_id integer,
@@ -15,7 +17,9 @@ CREATE FOREIGN TABLE OMOPFT.concept
     invalid_reason varchar(1)
 ) SERVER OMOPFT.ForeignServer FILE 'CONCEPT.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.concept_ancestor
 (
     ancestor_concept_id integer,
@@ -24,7 +28,9 @@ CREATE FOREIGN TABLE OMOPFT.concept_ancestor
     max_levels_of_separation integer
 ) SERVER OMOPFT.ForeignServer FILE 'CONCEPT_ANCESTOR.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.concept_class
 (
     concept_class_id varchar(20),
@@ -32,7 +38,9 @@ CREATE FOREIGN TABLE OMOPFT.concept_class
     concept_class_concept_id integer
 ) SERVER OMOPFT.ForeignServer FILE 'CONCEPT_CLASS.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.concept_relationship
 (
     concept_id_1 integer,
@@ -43,7 +51,9 @@ CREATE FOREIGN TABLE OMOPFT.concept_relationship
     invalid_reason varchar(1)
 ) SERVER OMOPFT.ForeignServer FILE 'CONCEPT_RELATIONSHIP.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.concept_synonym
 (
     concept_id integer,
@@ -51,7 +61,9 @@ CREATE FOREIGN TABLE OMOPFT.concept_synonym
     language_concept_id integer
 ) SERVER OMOPFT.ForeignServer FILE 'CONCEPT_SYNONYM.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT."domain"
 (
     domain_id varchar(20),
@@ -59,7 +71,9 @@ CREATE FOREIGN TABLE OMOPFT."domain"
     domain_concept_id integer
 ) SERVER OMOPFT.ForeignServer FILE 'DOMAIN.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.drug_strength
 (
     drug_concept_id integer,
@@ -76,7 +90,9 @@ CREATE FOREIGN TABLE OMOPFT.drug_strength
     invalid_reason varchar(1)
 ) SERVER OMOPFT.ForeignServer FILE 'DRUG_STRENGTH.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.relationship
 (
     relationship_id varchar(20),
@@ -87,7 +103,9 @@ CREATE FOREIGN TABLE OMOPFT.relationship
     relationship_concept_id integer
 ) SERVER OMOPFT.ForeignServer FILE 'RELATIONSHIP.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.vocabulary
 (
     vocabulary_id varchar(20),
@@ -97,7 +115,9 @@ CREATE FOREIGN TABLE OMOPFT.vocabulary
     vocabulary_concept_id integer
 ) SERVER OMOPFT.ForeignServer FILE 'VOCABULARY.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": "\t", "withoutquotechar": true, "header": true } }, "into": {"jdbc": {"threads": 4} } }
+
 GO
+
 CREATE FOREIGN TABLE OMOPFT.postalcode
 (
     city_code varchar(20),
@@ -117,4 +137,5 @@ CREATE FOREIGN TABLE OMOPFT.postalcode
     update_reason_code integer    
 ) SERVER OMOPFT.ForeignServer FILE 'utf_ken_all.csv'
 USING{ "from": { "file": { "charset": "UTF-8", "columnseparator": ",", "header": false } }, "into": {"jdbc": {"threads": 4} } }
+
 GO

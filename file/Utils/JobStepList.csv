@@ -1,0 +1,6 @@
+﻿StepOrder,StepOrderSeq,StepName,ExecutionClassMethod,ExecutionParameter,Description
+1,1,MappingTable,LoadMappingTable,C:/test/omopfile/F2OMap.xlsx,マッピングテーブル(Excel)をロード
+2,1,LoadVocabularyTable,LoadOmopTable,Vocabulary,OSVテーブルを外部テーブルからロード
+3,1,ValidateData_NotNullColumn,ValidateData,1,必須入力項目のNULLチェック
+4,1,ValidateData_CrossCheck,ValidateData,2,テーブル間の整合性チェック
+5,1,LoadClinicalDataTable,LoadOmopTable,ClinicalData,ClinicalDataテーブルをviewからロード

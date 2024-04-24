@@ -1,5 +1,3 @@
-
-
 CREATE OR REPLACE VIEW OMOPSTG.v_location AS
 SELECT 
   TO_NUMBER(postal_code) as location_id,
@@ -17,7 +15,7 @@ SELECT
 FROM 
   OMOPFT.postalcode 
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_care_site AS
 SELECT 
@@ -31,7 +29,7 @@ FROM
   OMOPSBORG.Organization o
   LEFT OUTER JOIN OMOPSTG.v_location vl ON o.AddressPostalCode = vl.zip 
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_provider AS
 SELECT 
@@ -60,7 +58,7 @@ FROM
 WHERE
   pn.ValueCode = 'IDE'
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_person AS
 SELECT 
@@ -95,9 +93,8 @@ FROM %INORDER
   LEFT OUTER JOIN OMOPDTL.F2OMap m ON m.Key = 'PatientRace' AND p.Race = m.Source_Code
 WHERE 
   pn.NameCode = 'IDE'
-  
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_observation_period AS
 SELECT
@@ -109,9 +106,7 @@ SELECT
 FROM 
   OMOPSBENC.Encounter enc
   LEFT OUTER JOIN OMOPSBPAT.Patient pat ON enc.SubjectReference = 'Patient/' || pat.IdentifierValue 
-
-
-
+GO
 CREATE OR REPLACE VIEW OMOPSTG.v_visit_occurrence AS
 SELECT  e.ServiceProviderReference,
   e.ID as visit_occurrence_id,
@@ -138,7 +133,7 @@ FROM
   LEFT OUTER JOIN OMOPSBORG.Organization o ON e.ServiceProviderReference = 'Organization/' || o.IdentifierValue 
   LEFT OUTER JOIN OMOPDTL.F2OMap m ON m.Key = 'EncounterType' AND e.ClassCode = m.Source_Code 
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_condition_occurrence AS
 SELECT 
@@ -164,7 +159,7 @@ FROM
   LEFT OUTER JOIN OMOPDTL.F2OMap m1 ON m1."Key" = 'ConditionCode' AND c.CodeCodingCode = m1.Source_Code
   LEFT OUTER JOIN OMOPDTL.F2OMap m2 ON m2."Key" = 'ClinicalStatus' AND c.ClinicalStatusCodingCode = m2.Source_Code
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_drug_exposure_oralexternal AS
 SELECT 
@@ -218,7 +213,7 @@ WHERE
   ma.MetaProfile = 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationAdministration'
   AND ma.Status IN ('completed', 'in-progress', 'on-hold')
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_drug_exposure_injection AS
 SELECT 
@@ -273,7 +268,7 @@ WHERE
   ma.MetaProfile = 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationAdministration_Injection'
   AND ma.Status IN ('completed', 'in-progress', 'on-hold')
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_procedure_occurrence AS
 SELECT 
@@ -300,7 +295,7 @@ FROM
   LEFT OUTER JOIN OMOPDTL.F2OMap map1 ON map1."Key" = 'Procedure' AND map1.Source_Code = cc.Code 
   LEFT OUTER JOIN OMOPDTL.F2OMap map2 ON map2."Key" = 'ProcedureCategory' AND map2.Source_Code = pcd.CategoryCodingCode 
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_measurement_bodymeasurement AS
 SELECT 
@@ -337,8 +332,8 @@ FROM
   LEFT OUTER JOIN OMOPSBENC.Encounter enc ON obs.EncounterReference = 'Encounter/' || enc.IdentifierValue
 WHERE 
   obs.MetaProfile = 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_BodyMeasurement'
-  
 
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_measurement_labresult AS
 SELECT 
@@ -376,7 +371,7 @@ FROM
 WHERE 
   obs.MetaProfile = 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_LabResult'
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_measurement_vitalsigns AS
 SELECT 
@@ -414,7 +409,7 @@ FROM
 WHERE 
   obs.MetaProfile = 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_VitalSigns'
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_observation_socialhistory AS 
 SELECT 
@@ -450,7 +445,7 @@ FROM
 WHERE 
   obs.MetaProfile = 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_SocialHistory'
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_drug_exposure AS
 SELECT
@@ -507,7 +502,7 @@ SELECT
 FROM 
   OMOPSTG.v_drug_exposure_injection 
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_measurement AS
 SELECT 
@@ -591,7 +586,7 @@ SELECT
 FROM
   OMOPSTG.v_measurement_vitalsigns 
 
-
+GO
 
 CREATE OR REPLACE VIEW OMOPSTG.v_observation AS 
 SELECT 
@@ -619,4 +614,4 @@ SELECT
 FROM 
 OMOPSTG.v_observation_socialhistory
 
-
+GO
