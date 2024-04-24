@@ -2,7 +2,7 @@
 InterSystems IRIS for Health を用いてFHIRリポジトリのデータをOMOP CDM形式に変換するプログラムの試行版です。
 
 ## ディレクトリ構成
-
+```
 root/  
   ├ file/  
   │  ├ FHIR/  ・・・・・・テスト用FHIRリソースデータ  
@@ -12,6 +12,7 @@ root/
       ├ cls/ ・・・・・・・OMOPDTLパッケージ内クラス定義  
       ├ ddl/ ・・・・・・・テーブル、インデックス作成用DDL  
       └ fsb_transform/ ・・FHIR SQL Builderでの変換定義  
+```
 
 ## インストール手順
 
