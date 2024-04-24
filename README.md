@@ -42,14 +42,17 @@ root/
       - Port = FHIRリポジトリのWebサーバポート番号
       - Credentials = 作成したCredentials名
       - FHIR Repository URL = FHIRリポジトリのURL
+      
     2. Analyses
     - Analysis設定を作成する
       - FHIR Repository = OmopRepo
       - Selectivity Percentage = 100 (データ量に応じて適宜変更)
+      
     3. Transformation Specification
     - ファイルからインポートして設定
       - Name = インポートされた名前のままとする
       - Analysis = 作成したAnalysis設定を指定
+      
     4. Projections
     - 個別にProjection設定を作成する
       - FHIR Repository = OmopRepo
@@ -71,23 +74,29 @@ root/
   いずれも1つ目の引数はDDLスクリプトのパス、2つ目の引数は実行ログのパスを指定するよう適宜変更
     1. OMOPDTLパッケージ クラス作成
     - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Vocabulary_Tables_DDL.sql","/tmp/OMOP_Vocabulary_Tables_DDL.log","IRIS")`
+    
     2. OMOPパッケージ OMOPテーブル作成
     - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Clinical_Tables_DDL.sql","/tmp/OMOP_Clinical_Tables_DDL.log","IRIS")`
+    
     3. OMOPFTパッケージ 外部テーブル作成
     - コマンド実行前に、FOREIGN SERVERのファイルパスを適宜変更する  
     (スクリプト2行目 'C://test/omopfile' の記述)
     - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPFT_Foreign_Tables_DDL.sql","/tmp/OMOPFT_Foreign_Tables_DDL.log","IRIS")`
+    
     4. OMOPSTGパッケージ ビュー作成
     - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPSTG_Views_DDL.sql","/tmp/OMOPSTG_Views_DDL.log","IRIS")`
 
 5. 設定テーブルに値を投入
   - いずれも管理ポータル画面、SQLページの ウィザード から データ・インポート で実行
     1. OMOPDTL.JobStepList
-    - CSVファイル (./file/Utils/JobStepList.csv) をロード 
+    - CSVファイル (./file/Utils/JobStepList.csv) をロード
+    
     2. OMOPDTL.TableList
     - CSVファイル (./file/Utils/TableList.csv) をロード
+    
     3. OMOPDTL.TableFieldList
     - CSVファイル (./file/Utils/TableFieldList.csv) をロード
+    
     4. OMOPDTL.ValidateDataConfig
     - CSVファイル (./file/Utils/ValidationDataConfig.csv) をロード
 
