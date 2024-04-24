@@ -30,7 +30,10 @@ root/
   - 1.で作成したネームスペースにリポジトリを作成する
   - Core FHIR package はバージョン4.0.1(hl7.fhir.r4.core@4.0.1)で作成する
   - 作成後に、FHIR SQL Builderでサンプリングするためのテストデータをロードする必要がある  
-    コマンド例： `Set status = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/home/irisowner/file/FHIR","FHIRServer","/csp/healthshare/omop/fhir/r4")`  
+    コマンド例：
+    ```
+    Set status = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/home/irisowner/file/FHIR","FHIRServer","/csp/healthshare/omop/fhir/r4")
+    ```  
     1番目の引数にテストデータのディレクトリを、3番目の引数にFHIRリポジトリのURLを指定する
 
 3. FHIR SQL Builder設定
@@ -73,18 +76,25 @@ root/
   - `%SYSTEM.SQL.Schema` クラスの `ImportDDL` メソッドを実行して、DDLスクリプトから作成する  
   いずれも1つ目の引数はDDLスクリプトのパス、2つ目の引数は実行ログのパスを指定するよう適宜変更
     1. OMOPDTLパッケージ クラス作成
-    - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Vocabulary_Tables_DDL.sql","/tmp/OMOP_Vocabulary_Tables_DDL.log","IRIS")`
+    ```
+    do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Vocabulary_Tables_DDL.sql","/tmp/OMOP_Vocabulary_Tables_DDL.log","IRIS")
+    ```
     
     2. OMOPパッケージ OMOPテーブル作成
-    - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Clinical_Tables_DDL.sql","/tmp/OMOP_Clinical_Tables_DDL.log","IRIS")`
+    ```
+    do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Clinical_Tables_DDL.sql","/tmp/OMOP_Clinical_Tables_DDL.log","IRIS")
+    ```
     
     3. OMOPFTパッケージ 外部テーブル作成
-    - コマンド実行前に、FOREIGN SERVERのファイルパスを適宜変更する  
-    (スクリプト2行目 'C://test/omopfile' の記述)
-    - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPFT_Foreign_Tables_DDL.sql","/tmp/OMOPFT_Foreign_Tables_DDL.log","IRIS")`
+    - コマンド実行前に、FOREIGN SERVERのファイルパス(スクリプト2行目)を OMOP OSVファイルを配置したパスに変更する  
+    ```
+    do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPFT_Foreign_Tables_DDL.sql","/tmp/OMOPFT_Foreign_Tables_DDL.log","IRIS")
+    ```
     
     4. OMOPSTGパッケージ ビュー作成
-    - `do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPSTG_Views_DDL.sql","/tmp/OMOPSTG_Views_DDL.log","IRIS")`
+    ```
+    do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPSTG_Views_DDL.sql","/tmp/OMOPSTG_Views_DDL.log","IRIS")
+    ```
 
 5. 設定テーブルに値を投入
   - いずれも管理ポータル画面、SQLページの ウィザード から データ・インポート で実行
