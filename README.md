@@ -103,7 +103,7 @@ root/
     do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPSTG_Views_DDL.sql","/tmp/OMOPSTG_Views_DDL.log","IRIS")
     ```
 
-5. 設定テーブルに値を投入
+5. 管理テーブルに値を投入
   - いずれも管理ポータル画面、SQLページの ウィザード から データ・インポート で実行
     1. OMOPDTL.JobStepList
     - CSVファイル (./file/Utils/JobStepList.csv) をロード
