@@ -73,25 +73,32 @@ root/
       | OmopTransform_Procedure | OMOPSBPCD |  
 
 4. IRISオブジェクト作成
-  - `%SYSTEM.SQL.Schema` クラスの `ImportDDL` メソッドを実行して、DDLスクリプトから作成する  
-  いずれも1つ目の引数はDDLスクリプトのパス、2つ目の引数は実行ログのパスを指定するよう適宜変更
     1. OMOPDTLパッケージ クラス作成
+    - `%SYSTEM.OBJ` クラスの `LoadDir` メソッドを実行して、クラスファイル(cls)から作成する  
+    1つ目の引数はクラスファイルのパス、3つ目の引数は実行ログのパスを指定するよう適宜変更
     ```
-    do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Vocabulary_Tables_DDL.sql","/tmp/OMOP_Vocabulary_Tables_DDL.log","IRIS")
+    do $SYSTEM.OBJ.LoadDir("/mnt/omop/src/cls","ck","/tmp/OMOPDTL.log",1)
     ```
     
     2. OMOPパッケージ OMOPテーブル作成
+    - `%SYSTEM.SQL.Schema` クラスの `ImportDDL` メソッドを実行して、DDLスクリプトから作成する  
+    1つ目の引数はDDLスクリプトのパス、2つ目の引数は実行ログのパスを指定するよう適宜変更
     ```
+    do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Vocabulary_Tables_DDL.sql","/tmp/OMOP_Vocabulary_Tables_DDL.log","IRIS")
     do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOP_Clinical_Tables_DDL.sql","/tmp/OMOP_Clinical_Tables_DDL.log","IRIS")
     ```
     
     3. OMOPFTパッケージ 外部テーブル作成
+    - `%SYSTEM.SQL.Schema` クラスの `ImportDDL` メソッドを実行して、DDLスクリプトから作成する  
+    1つ目の引数はDDLスクリプトのパス、2つ目の引数は実行ログのパスを指定するよう適宜変更
     - コマンド実行前に、FOREIGN SERVERのファイルパス(スクリプト2行目)を OMOP OSVファイルを配置したパスに変更する  
     ```
     do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPFT_Foreign_Tables_DDL.sql","/tmp/OMOPFT_Foreign_Tables_DDL.log","IRIS")
     ```
     
     4. OMOPSTGパッケージ ビュー作成
+    - `%SYSTEM.SQL.Schema` クラスの `ImportDDL` メソッドを実行して、DDLスクリプトから作成する  
+    1つ目の引数はDDLスクリプトのパス、2つ目の引数は実行ログのパスを指定するよう適宜変更
     ```
     do $SYSTEM.SQL.Schema.ImportDDL("/home/irisowner/IRIS-FHIR-to-OMOP/src/ddl/OMOPSTG_Views_DDL.sql","/tmp/OMOPSTG_Views_DDL.log","IRIS")
     ```
