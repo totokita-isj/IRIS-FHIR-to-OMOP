@@ -6,10 +6,10 @@ ClassMethod EtlMain(pStart As %Integer, pEnd As %Integer) As %Status [ Language 
 {
   try {
 
-	  	/// JobStepListテーブルから実行するステップの一覧を抽出
-		SET script1 = "SELECT StepOrder, StepOrderSeq, StepName, ExecutionClassMethod, ExecutionParameter FROM OMOPDTL.JobStepList "_
-				  "WHERE StepOrder BETWEEN ? AND ? "_
-				  "ORDER BY StepOrder, StepOrderSeq"
+	/// JobStepListテーブルから実行するステップの一覧を抽出
+	SET script1 = "SELECT StepOrder, StepOrderSeq, StepName, ExecutionClassMethod, ExecutionParameter FROM OMOPDTL.JobStepList "_
+			  "WHERE StepOrder BETWEEN ? AND ? "_
+			  "ORDER BY StepOrder, StepOrderSeq"
     	SET stmt1=##class(%SQL.Statement).%New()
     	SET status1=stmt1.%Prepare(script1)
     	IF status1'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status1) QUIT}
@@ -23,23 +23,23 @@ ClassMethod EtlMain(pStart As %Integer, pEnd As %Integer) As %Status [ Language 
 	  			SET classmethod = rset1.ExecutionClassMethod
 	  			SET parameter = rset1.ExecutionParameter
 	  			/// 開始時刻をセット
-			    SET starttime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
+				SET starttime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
 
 	  			/// ExecutionClassMethodの値を基に、クラスメソッドを実行
 	  			SET exec=$CLASSMETHOD("OMOPDTL.Utils", classmethod, parameter)
 	  			
 				/// 終了時刻をセット
-    			SET endtime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
+    				SET endtime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
     
    				/// 実行ログを OMOPDTL.ExecutionLog に書き込み
 				SET starttimelt = $ZDATETIME(starttime, 3, 1, 3)
 				SET endtimelt = $ZDATETIME(endtime, 3, 1, 3)
 	
-    			SET logstmt=##class(%SQL.Statement).%New()
+    				SET logstmt=##class(%SQL.Statement).%New()
     
-    			SET status=logstmt.%Prepare("INSERT INTO OMOPDTL.ExecutionLog VALUES (?, ?, ?, ?)")
-    			IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
-    			SET logrset=logstmt.%Execute(order, stepname, starttimelt, endtimelt)
+    				SET status=logstmt.%Prepare("INSERT INTO OMOPDTL.ExecutionLog VALUES (?, ?, ?, ?)")
+    				IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    				SET logrset=logstmt.%Execute(order, stepname, starttimelt, endtimelt)
 				
 	  		}
 
@@ -69,9 +69,9 @@ ClassMethod LoadMappingTable(pFilePath As %String) [ Language = python ]
 	
 	# ODBC接続定義
 	server = 'localhost'
-	database = 'TEST'
+	database = 'OMOP'
 	username = '_SYSTEM'
-	password = 'irispass'
+	password = 'SYS'
 	cnxn = pyodbc.connect('DRIVER={InterSystems IRIS ODBC35};SERVER='+server +
                       ';DATABASE='+database+';UID='+username+';PWD=' + password)
 	cursor = cnxn.cursor()
@@ -110,16 +110,16 @@ ClassMethod ValidateData(pValidateType As %Integer) As %Status [ Language = obje
 		          "FROM OMOPDTL.ValidateDataConfig vdc "_
 		          "LEFT OUTER JOIN OMOPDTL.TableList tl1 ON vdc.ValidateTable = tl1.TableName "_
 		          "LEFT OUTER JOIN OMOPDTL.TableList tl2 ON vdc.CrossCheckTable  = tl2.TableName  "_
-				  "WHERE vdc.ValidateType = ? "_
-				  "ORDER BY vdc.StepOrder, vdc.StepOrderSeq"
+			  "WHERE vdc.ValidateType = ? "_
+			  "ORDER BY vdc.StepOrder, vdc.StepOrderSeq"
 
-    	SET stmt1=##class(%SQL.Statement).%New()
-    	SET status=stmt1.%Prepare(script1)
-    	IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
-    	SET rset1=stmt1.%Execute(pValidateType)
+    		SET stmt1=##class(%SQL.Statement).%New()
+    		SET status=stmt1.%Prepare(script1)
+    		IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    		SET rset1=stmt1.%Execute(pValidateType)
 
 		/// 読み込んだ行ごとにエラーチェックのSQL実行
-    	WHILE rset1.%Next()
+    		WHILE rset1.%Next()
   			{
 	  			SET order = rset1.StepOrder
 	  			SET seq = rset1.StepOrderSeq
@@ -155,10 +155,10 @@ ClassMethod ValidateData(pValidateType As %Integer) As %Status [ Language = obje
 				/// write order, seq, table & column for debug purpose
 				/// WRITE order_" | "_seq_" | "_table_" | "_column, !, script2, !, !
 				
-		    	SET stmt2=##class(%SQL.Statement).%New()
-    			SET status=stmt2.%Prepare(script2)
-    			IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
-    			SET rset2=stmt2.%Execute()
+		    		SET stmt2=##class(%SQL.Statement).%New()
+    				SET status=stmt2.%Prepare(script2)
+    				IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    				SET rset2=stmt2.%Execute()
 
 	  		}
 
@@ -178,9 +178,9 @@ ClassMethod LoadOmopTable(pTableType As %String) As %Status [ Language = objects
 	
 	try {
 
-	/// 対象テーブルのリストを取得
-	SET tabletype = pTableType
-	SET script1 = "SELECT t.TableType, t.SourceSchemaName, t.SourceTableName, t.SchemaName, t.TableName, "_
+		/// 対象テーブルのリストを取得
+		SET tabletype = pTableType
+		SET script1 = "SELECT t.TableType, t.SourceSchemaName, t.SourceTableName, t.SchemaName, t.TableName, "_
 				  "LIST(CASE WHEN tf.IsTextToDate = 1 THEN 'TO_DATE(' || tf.FieldName || ', ''YYYYMMDD'')' ELSE tf.FieldName END) AS SourceFieldList, "_
 				  "LIST(tf.FieldName) AS TargetFieldList "_
 				  "FROM OMOPDTL.TableList t "_
@@ -188,37 +188,36 @@ ClassMethod LoadOmopTable(pTableType As %String) As %Status [ Language = objects
 				  "WHERE t.TableType = ? "_
 				  "GROUP BY t.TableType, t.SourceSchemaName, t.SourceTableName, t.SchemaName, t.TableName "_
 				  "ORDER BY t.LoadSeq"
-    SET stmt=##class(%SQL.Statement).%New()
-    SET status=stmt.%Prepare(script1)
-    IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
-    SET rset=stmt.%Execute(tabletype)
+    		SET stmt=##class(%SQL.Statement).%New()
+    		SET status=stmt.%Prepare(script1)
+    		IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    		SET rset=stmt.%Execute(tabletype)
     
-    /// Vocabularyテーブルのロードの場合は、先にターゲットテーブルをTRUNCATEする
-    IF tabletype="Vocabulary"  {
-	    do ..TruncateOmopTable(tabletype)
-	    }
+    		/// Vocabularyテーブルのロードの場合は、先にターゲットテーブルをTRUNCATEする
+    		IF tabletype="Vocabulary"  {
+	    		do ..TruncateOmopTable(tabletype)
+	    	}
     
-    
-    WHILE rset.%Next()
-  		{
+    		WHILE rset.%Next()
+  			{
 	  		
-		/// SQL文(INSERT OR UPDATE)の生成
-		SET sourceschema = rset.SourceSchemaName
-		SET sourcetable = rset.SourceTableName
-		SET sourcefieldlist = rset.SourceFieldList
-		SET targetschema = rset.SchemaName
-		SET targettable = rset.TableName
-		SET targetfieldlist = rset.TargetFieldList
+			/// SQL文(INSERT OR UPDATE)の生成
+			SET sourceschema = rset.SourceSchemaName
+			SET sourcetable = rset.SourceTableName
+			SET sourcefieldlist = rset.SourceFieldList
+			SET targetschema = rset.SchemaName
+			SET targettable = rset.TableName
+			SET targetfieldlist = rset.TargetFieldList
 
-		SET script2 = "INSERT OR UPDATE %NOCHECK %NOJOURN %NOLOCK "_targetschema_"."_targettable_
+			SET script2 = "INSERT OR UPDATE %NOCHECK %NOJOURN %NOLOCK "_targetschema_"."_targettable_
 					 " ("_targetfieldlist_") "_
 					 "SELECT "_sourcefieldlist_" "_
 					 "FROM "_sourceschema_"."_sourcetable
 			
-		/// INSERT OR UPDATE文の実行
-		do ..ExecLoadSql(targettable, script2)
+			/// INSERT OR UPDATE文の実行
+			do ..ExecLoadSql(targettable, script2)
 
-  		}
+  			}
   	}
   	
 	Catch e {
@@ -234,29 +233,30 @@ ClassMethod ExecLoadSql(pTable As %String, pScript As %String) As %Status [ Lang
 {
 	
   try {
-    SET status = $$$OK 
+
+    	SET status = $$$OK 
 	SET tablename = pTable
 	/// 開始時刻をセット
-    SET starttime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
+    	SET starttime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
 
-    SET statemt=##class(%SQL.Statement).%New()
+    	SET statemt=##class(%SQL.Statement).%New()
     
-    SET status=statemt.%Prepare(pScript) 
-    IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
-    SET rset=statemt.%Execute()
+    	SET status=statemt.%Prepare(pScript) 
+    	IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    	SET rset=statemt.%Execute()
     
 	/// 終了時刻をセット
-    SET endtime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
+    	SET endtime = $SYSTEM.Util.UTCtoLocalWithZTIMEZONE($ZTIMESTAMP)
     
-    /// 実行ログを OMOPDTL.TableLoadLog に書き込み
+    	/// 実行ログを OMOPDTL.TableLoadLog に書き込み
 	SET starttimelt = $ZDATETIME(starttime, 3, 1, 3)
 	SET endtimelt = $ZDATETIME(endtime, 3, 1, 3)
 	
-    SET logstmt=##class(%SQL.Statement).%New()
+    	SET logstmt=##class(%SQL.Statement).%New()
     
-    SET status=logstmt.%Prepare("INSERT INTO OMOPDTL.TableLoadLog VALUES (?, ?, ?)")
-    IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
-    SET logrset=logstmt.%Execute(tablename, starttimelt, endtimelt)
+    	SET status=logstmt.%Prepare("INSERT INTO OMOPDTL.TableLoadLog VALUES (?, ?, ?)")
+    	IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    	SET logrset=logstmt.%Execute(tablename, starttimelt, endtimelt)
     
   }
   Catch e {
@@ -271,7 +271,7 @@ ClassMethod ExecLoadSql(pTable As %String, pScript As %String) As %Status [ Lang
 ClassMethod TruncateOmopTable(pTableType As %String) As %Status [ Language = objectscript ]
 {
 	
-	try {
+  try {
 
 	/// 対象テーブルのリストを取得
 	SET tabletype = pTableType
@@ -279,13 +279,13 @@ ClassMethod TruncateOmopTable(pTableType As %String) As %Status [ Language = obj
 				  "FROM OMOPDTL.TableList t "_
 				  "WHERE t.TableType = ? "_
 				  "ORDER BY t.LoadSeq DESC"
-    SET stmt=##class(%SQL.Statement).%New()
-    SET status=stmt.%Prepare(script1)
-    IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
-    SET rset=stmt.%Execute(tabletype)
+    	SET stmt=##class(%SQL.Statement).%New()
+    	SET status=stmt.%Prepare(script1)
+    	IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    	SET rset=stmt.%Execute(tabletype)
     
     
-    WHILE rset.%Next()
+   	WHILE rset.%Next()
   		{
 	  		
 		/// SQL文(TRUNCATE TABLE)の生成
@@ -295,10 +295,10 @@ ClassMethod TruncateOmopTable(pTableType As %String) As %Status [ Language = obj
 		SET script2 = "TRUNCATE TABLE %NOCHECK %NOLOCK %NOJOURN "_targetschema_"."_targettable
 			
 		/// TRUNCATE TABLE文の実行
-	    SET stmt2=##class(%SQL.Statement).%New()
-    	SET status=stmt2.%Prepare(script2)
-    	IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
-    	SET rset2=stmt2.%Execute()
+	    	SET stmt2=##class(%SQL.Statement).%New()
+    		SET status=stmt2.%Prepare(script2)
+    		IF status'=1 {WRITE "%Prepare failed:" DO $System.Status.DisplayError(status) QUIT}
+    		SET rset2=stmt2.%Execute()
 
   		}
   	}
@@ -310,6 +310,5 @@ ClassMethod TruncateOmopTable(pTableType As %String) As %Status [ Language = obj
 
  	QUIT status
 }
-
 
 }
