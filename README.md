@@ -18,7 +18,7 @@ root/
 
 1. IRIS for Health 設定
   - バージョンは2023.3以降のものを使用する
-  - Pythonライブラリについて、pandas と pyodbc をインストールする必要がある  
+  - Pythonライブラリについて、pandas, pyodbc, openpyxl をインストールする必要がある  
   インストール方法はオンラインドキュメントを参照
   https://docs.intersystems.com/iris20231/csp/docbookj/DocBook.UI.Page.cls?KEY=AEPYTHON#AEPYTHON_callpython
   - ODBCドライバをインストールする必要がある  
